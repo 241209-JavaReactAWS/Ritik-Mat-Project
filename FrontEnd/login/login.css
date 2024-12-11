@@ -1,0 +1,14 @@
+.main{
+    display: grid;
+    border: 2px solid black;
+    border-radius: 10px;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    padding: auto;
+}
+.login-header{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
