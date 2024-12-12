@@ -25,7 +25,11 @@
     text-align: center;
     width: 250px;
     margin: 20px;
+    height: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 2px 16px;
     
+   
 }
    
 #multiplier{
@@ -36,7 +40,7 @@
 }
 #backpack-storage{
     width: 500px;
-   /* border: 2px solid black;*/
+   /* border: 2px solid black; */
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -48,11 +52,13 @@
 }
 button{
     border: 2px solid black;
+    cursor: pointer;
 }
 
 #multiplier button{
     border-radius: 50%;
     margin: 10px;
+    cursor: pointer;
 }
 select{
     display: flex;
@@ -60,4 +66,38 @@ select{
     align-content: center;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
+}
+.rankSS{
+    background: rgb(30,144,255);
+background: linear-gradient(315deg, rgba(30,144,255,1) 0%, rgba(153,186,221,1) 100%);
+}
+.rankS{
+    background-color: #e4b5cb;
+    background-image: linear-gradient(315deg, #e4b5cb 0%, #722ae6 74%);
+}
+.rankA{
+    background-color: #fec84e;
+background-image: linear-gradient(315deg, #fec84e 0%, #ffdea8 74%);
+}
+.rankB{
+    background-color: darkred;
+}
+.rankC{
+    background-color: darkblue;
+}
+.rankD{
+    background-color: orange;
+}
+.rankE{
+    background-color: green;
+}
+.rankF{
+    background-color: gray;
+}
+.card p{
+    font-size: x-large;
+    color: #fff;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+
 }

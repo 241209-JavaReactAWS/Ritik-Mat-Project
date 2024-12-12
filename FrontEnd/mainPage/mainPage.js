@@ -38,7 +38,7 @@ let duckies = [
         id: 6,
         //referenceId: 1,
         name: "Duck6",
-        rank: "F",
+        rank: "SS",
 
     }
 ]
@@ -52,9 +52,12 @@ function populateCards(duckies){
         cDiv.innerHTML = `<p>Name: ${card.name}</p> 
         <p>Rank: ${card.rank}</p>`
 
-        cDiv.setAttribute('class', 'card')
-
+        cDiv.classList.add('card')
+        cDiv.classList.add(`rank${card["rank"]}`)
+        
         cardContainer.append(cDiv)
+        
+
     }
 }
 
