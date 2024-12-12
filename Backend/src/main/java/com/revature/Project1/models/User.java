@@ -18,20 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
     private String username;
-
     private String password;
-
-    @Column(columnDefinition = "default 0.0")
     private double bank_account;
-
-    @Column(columnDefinition = "default 6")
     private int backpack_space;
-
-    @Column(columnDefinition = "default false")
-    private Boolean admin;
-
+    private int admin;
 
     public User(String password, String username) {
         this.password = password;
@@ -70,11 +61,11 @@ public class User {
         this.backpack_space = backpack_space;
     }
 
-    public Boolean getAdmin() {
+    public int getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Boolean admin) {
+    public void setAdmin(int admin) {
         this.admin = admin;
     }
 

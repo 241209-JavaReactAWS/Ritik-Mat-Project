@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DuckDAO extends JpaRepository<Duck,Integer> {
-    public List<Duck> findAllDuckByForeign_id(int foreign_id);
+    public List<Duck> findAllDuckByReferenceId(int ReferenceId);
 }

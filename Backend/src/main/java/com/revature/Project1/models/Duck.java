@@ -15,11 +15,13 @@ public class Duck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int reference_id;
-    private int rank;
+    @Column(name="referenceId")
+    private int referenceId;
+
+    private String rank;
     private String nickname;
 
-    public Duck(int rank) {
+    public Duck(String rank) {
         this.rank = rank;
     }
 
@@ -32,18 +34,18 @@ public class Duck {
     }
 
     public int getReference_id() {
-        return reference_id;
+        return referenceId;
     }
 
     public void setReference_id(int reference_id) {
-        this.reference_id = reference_id;
+        this.referenceId = reference_id;
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 

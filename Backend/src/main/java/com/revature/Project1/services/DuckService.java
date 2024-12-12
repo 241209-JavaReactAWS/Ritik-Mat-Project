@@ -23,8 +23,8 @@ public class DuckService {
         return duckDAO.findById(duck.getId());
     }
 
-    public List<Duck> getDucksByForeignId(int foreignId){
-        return duckDAO.findAllDuckByForeign_id(foreignId);
+    public List<Duck> getDucksByForeignId(int referenceId){
+        return duckDAO.findAllDuckByReferenceId(referenceId);
     }
 
     public Optional<Duck> setDuckNicknameById(Duck duck) throws ClientSideException {
