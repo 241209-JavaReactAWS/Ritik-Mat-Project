@@ -1,10 +1,6 @@
 package com.revature.Project1.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -22,10 +18,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
-    private float bank_account;
+
+    @Column(columnDefinition = "default 0.0")
+    private double bank_account;
+
+    @Column(columnDefinition = "default 6")
     private int backpack_space;
+
+    @Column(columnDefinition = "default false")
     private Boolean admin;
 
 
@@ -50,7 +54,7 @@ public class User {
         this.password = password;
     }
 
-    public float getBank_account() {
+    public double getBank_account() {
         return bank_account;
     }
 

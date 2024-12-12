@@ -17,7 +17,7 @@ public class Duck {
 
     private int reference_id;
     private int rank;
-    private int nickname;
+    private String nickname;
 
     public Duck(int rank) {
         this.rank = rank;
@@ -47,11 +47,11 @@ public class Duck {
         this.rank = rank;
     }
 
-    public int getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(int nickname) {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 }
