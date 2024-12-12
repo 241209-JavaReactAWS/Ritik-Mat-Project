@@ -52,5 +52,14 @@ public class SupplementaryFunctions {
         return totalAmount * multiplier;
     }
 
+    public Boolean duckAvailable(String rank, Map<String,Integer> DuckAmounts){
+        if(rank.equals("F")) return true;
+        if(rank.equals("E")) return true;
+        if(rank.equals("D")) return true;
+        if(rank.equals("C")) return true;
+        if(DuckAmounts.getOrDefault(rank,0) != 0) return true;
+        return false;
+    }
+
 }
 

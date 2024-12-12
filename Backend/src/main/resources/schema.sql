@@ -19,15 +19,17 @@ CREATE TABLE ducks{
 
 CREATE TABLE worlds{
     id int,
-    f_rank int,
-    e_rank int,
-    d_rank int,,
-    c_rank int,
-    b_rank int,
-    a_rank int,
-    s_rank int,
-    ss_rank int,
+    f_rank int DEFAULT 0,
+    e_rank int DEFAULT 0,
+    d_rank int DEFAULT 0,
+    c_rank int DEFAULT 0,
+    b_rank int DEFAULT 0,
+    a_rank int DEFAULT 0,
+    s_rank int DEFAULT 0,
+    ss_rank int DEFAULT 0,
     PRIMARY KEY (id)
 };
 
 INSERT INTO users (username,password,admin) VALUES ("admin","admin",1);
+INSERT INTO worlds (f_rank,e_rank,d_rank,c_rank) VALUES (1,1,1,1);
+
