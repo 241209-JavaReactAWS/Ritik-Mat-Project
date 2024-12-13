@@ -6,6 +6,9 @@ import com.revature.Project1.models.World;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Service
 public class WorldService {
 
@@ -14,6 +17,12 @@ public class WorldService {
     @Autowired
     public WorldService(WorldDAO worldDAO) {
         this.worldDAO = worldDAO;
+    }
+
+    public World getWorldValuesById(int id) throws  ClientSideException{
+        Optional<World> resultWorld = worldDAO.findById(id);
+        if(resultWorld.isEmpty()) throw new ClientSideException();
+        return resultWorld.get();
     }
 
     public World setWorldValues(World world) throws ClientSideException {

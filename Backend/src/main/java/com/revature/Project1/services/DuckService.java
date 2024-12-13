@@ -19,8 +19,8 @@ public class DuckService {
         this.duckDAO = duckDAO;
     }
 
-    public Optional<Duck> getDuckById(Duck duck){
-        return duckDAO.findById(duck.getId());
+    public Optional<Duck> getDuckById(int id){
+        return duckDAO.findById(id);
     }
 
     public List<Duck> getDucksByForeignId(int referenceId){

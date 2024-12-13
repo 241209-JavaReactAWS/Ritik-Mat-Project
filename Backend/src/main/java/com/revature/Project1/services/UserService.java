@@ -20,8 +20,8 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public Optional<User> getUserById(User user){
-        return userDAO.findById(user.getId());
+    public Optional<User> getUserById(Integer id){
+        return userDAO.findById(id);
     }
 
     public Optional<User> getUserByUsername(User user){
@@ -34,4 +34,6 @@ public class UserService {
         if(userDAO.findUserByUsername(user.getUsername()).isPresent()) throw new ConflictException();
         return userDAO.save(user);
     }
+
+
 }
