@@ -27,6 +27,7 @@ public class DuckService {
         return duckDAO.findAllDuckByReferenceId(referenceId);
     }
 
+
     public Optional<Duck> setDuckNicknameById(Duck duck) throws ClientSideException {
         Optional<Duck> resultDuck = duckDAO.findById(duck.getId());
         if(resultDuck.isEmpty()) throw new ClientSideException();

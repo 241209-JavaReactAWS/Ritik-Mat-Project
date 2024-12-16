@@ -12,6 +12,7 @@ public class Duck {
     nickname
      */
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -20,6 +21,10 @@ public class Duck {
 
     private String rank;
     private String nickname;
+
+    public Duck(){
+
+    }
 
     public Duck(String rank) {
         this.rank = rank;

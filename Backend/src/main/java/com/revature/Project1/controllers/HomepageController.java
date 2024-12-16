@@ -8,6 +8,8 @@ import com.revature.Project1.models.User;
 import com.revature.Project1.services.DuckService;
 import com.revature.Project1.services.UserService;
 import com.revature.Project1.services.WorldService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
 public class HomepageController {
 
     private final UserService userService;
@@ -26,7 +27,7 @@ public class HomepageController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "register")
     public ResponseEntity registerAccount(@RequestBody User user){
         try{
             User resultUser = userService.createUser(user);
@@ -42,7 +43,7 @@ public class HomepageController {
         }
     }
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "login")
     public ResponseEntity loginAccount(@RequestBody User user){
             Optional<User> resultUser = userService.getUserByUsername(user);
             if(resultUser.isEmpty()){
@@ -55,4 +56,18 @@ public class HomepageController {
             }
 
     }
-}
+
+    @PostMapping(value = "loginCookie")
+    public String setLoginCookie(HttpServletResponse servlet, @RequestBody User user){
+        Cookie cookie = new Cookie("project1LoginCookie", Integer.toString(user.getId()));
+        cookie.setMaxAge(100000);
+        servlet.addCookie(cookie);
+        return "Cookie Added";
+    }
+
+    @GetMapping(value = "")
+    public String getLoginCookie(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
+        return cookie;
+        }
+    }
+

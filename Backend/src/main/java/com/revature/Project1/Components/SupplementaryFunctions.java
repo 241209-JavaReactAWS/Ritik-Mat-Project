@@ -1,9 +1,11 @@
 package com.revature.Project1.Components;
 
 
+import com.revature.Project1.models.Duck;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -25,18 +27,23 @@ public class SupplementaryFunctions {
     }
 
     public Integer rollForDuck(){
-        int denominator = 0;
-        for(int i : duckChances) {
-            denominator += i;
-        }
+        int denominator = getDenominator();
         long randomValue = Math.round(Math.random() * denominator);
         return (int)randomValue;
     }
 
-    public Integer rollForDuck(int advantage, int denominator){
+    public Integer getDenominator(){
+        int denominator = 0;
+        for(int i : duckChances) {
+            denominator += i;
+        }
+        return denominator;
+    }
+
+    public Integer rollForDuck(int advantage){
         long totalRoll = 0L;
         for(int i = 0; i < advantage; i++){
-            long randomValue = Math.round(Math.random() * denominator);
+            long randomValue = Math.round(Math.random() * getDenominator());
             totalRoll = Math.max(totalRoll,randomValue);
         }
        return (int)totalRoll;
@@ -53,10 +60,10 @@ public class SupplementaryFunctions {
         return null;
     }
 
-    public Double getTotalAmount(String[] backpack, int multiplier){
+    public Double getTotalAmount(List<Duck> ducks, int multiplier){
         Double totalAmount = 0.0;
-        for(String i : backpack){
-            totalAmount += duckValueMap.getOrDefault(i,0.0);
+        for(Duck i : ducks){
+            totalAmount += duckValueMap.getOrDefault(i.getRank(),0.0);
         }
         return totalAmount * multiplier;
     }

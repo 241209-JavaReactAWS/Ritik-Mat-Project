@@ -9,6 +9,7 @@ import com.revature.Project1.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,17 @@ public class UserService {
         return userDAO.save(user);
     }
 
+    public List<User> getAllUsers() {
+        return userDAO.findAll();
+    }
+
+    public User setUserBankAccount(User user, Double amount) throws ClientSideException{
+        Optional<User> userObtained = userDAO.findById(user.getId());
+        if(userObtained.isEmpty()) throw new ClientSideException();
+        User returnUser = userObtained.get();
+        returnUser.setBank_account((float)(returnUser.getBank_account() + amount));
+        userDAO.save(returnUser);
+        return returnUser;
+    }
 
 }
