@@ -2,6 +2,9 @@ package com.revature.Project1.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 @Table(name = "worlds")
 public class World {
@@ -111,5 +114,18 @@ public class World {
 
     public void setSs_rank(int ss_rank) {
         this.ss_rank = ss_rank;
+    }
+
+    public Map<String,Integer> convertToMap(){
+        Map<String,Integer> finalMap = new HashMap<>();
+        finalMap.put("F",this.f_rank);
+        finalMap.put("E",this.e_rank);
+        finalMap.put("D",this.d_rank);
+        finalMap.put("C",this.c_rank);
+        finalMap.put("B",this.b_rank);
+        finalMap.put("A",this.a_rank);
+        finalMap.put("S",this.s_rank);
+        finalMap.put("SS",this.ss_rank);
+        return finalMap;
     }
 }
