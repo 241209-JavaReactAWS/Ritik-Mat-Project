@@ -11,6 +11,8 @@ import com.revature.Project1.services.WorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("backpack")
+@EnableAsync
 public class MainpageController {
     private final UserService userService;
     private final DuckService duckService;
@@ -44,7 +47,7 @@ public class MainpageController {
         return ResponseEntity.status(HttpStatus.OK).body(resultUser);
     }
 
-//    @Scheduled(fixedRate = 10000)
+    @Async
     @PostMapping(value = "")
     public ResponseEntity postNewDuck(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
         if(cookie.equals("none")) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
@@ -83,10 +86,11 @@ public class MainpageController {
 
         try{
             returnDuck = duckService.createDuck(returnDuck);
-
+            Thread.sleep(10000);
             return ResponseEntity.status(HttpStatus.OK).body(returnDuck);
         }
         catch (Exception e){
+            Thread.currentThread().interrupt();
             return ResponseEntity.status(500).body("Something Went Wrong");
         }
     }
@@ -183,6 +187,4 @@ public class MainpageController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
     }
-
-
 }

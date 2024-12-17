@@ -44,26 +44,29 @@ public class HomepageController {
     }
 
     @GetMapping(value = "login")
-    public ResponseEntity loginAccount(@RequestBody User user){
+    public ResponseEntity loginAccount(@RequestBody User user,HttpServletResponse servlet){
             Optional<User> resultUser = userService.getUserByUsername(user);
             if(resultUser.isEmpty()){
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
             }
             if(resultUser.get().getPassword().equals(user.getPassword())){
+                Cookie cookie = new Cookie("project1LoginCookie", Integer.toString(user.getId()));
+                cookie.setMaxAge(100000);
+                servlet.addCookie(cookie);
                 return ResponseEntity.status(HttpStatus.OK).body(resultUser);
             } else{
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
             }
-
     }
 
-    @PostMapping(value = "loginCookie")
-    public String setLoginCookie(HttpServletResponse servlet, @RequestBody User user){
-        Cookie cookie = new Cookie("project1LoginCookie", Integer.toString(user.getId()));
+    @GetMapping(value = "logout")
+    public ResponseEntity logout(HttpServletResponse servlet){
+        Cookie cookie = new Cookie("project1LoginCookie", null);
         cookie.setMaxAge(100000);
         servlet.addCookie(cookie);
-        return "Cookie Added";
+        return ResponseEntity.status(HttpStatus.OK).body("Logged Out");
     }
+
 
     @GetMapping(value = "")
     public String getLoginCookie(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
