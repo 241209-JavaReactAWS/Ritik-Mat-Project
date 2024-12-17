@@ -50,7 +50,7 @@ public class HomepageController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
             }
             if(resultUser.get().getPassword().equals(user.getPassword())){
-                Cookie cookie = new Cookie("project1LoginCookie", Integer.toString(user.getId()));
+                Cookie cookie = new Cookie("project1LoginCookie", Integer.toString(resultUser.get().getId()));
                 cookie.setMaxAge(100000);
                 servlet.addCookie(cookie);
                 return ResponseEntity.status(HttpStatus.OK).body(resultUser);
@@ -69,8 +69,8 @@ public class HomepageController {
 
 
     @GetMapping(value = "")
-    public String getLoginCookie(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
-        return cookie;
+    public ResponseEntity getLoginCookie(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
+        return ResponseEntity.status(HttpStatus.OK).body(cookie);
         }
     }
 

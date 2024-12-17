@@ -1,6 +1,8 @@
 package com.revature.Project1.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +23,10 @@ public class User {
     private String username;
     private String password;
     private double bank_account;
+
+    @ColumnDefault("6")
     private int backpack_space;
+
     private int admin;
 
     public User(String password, String username) {

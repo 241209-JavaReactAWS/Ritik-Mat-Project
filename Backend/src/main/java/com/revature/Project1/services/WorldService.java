@@ -19,6 +19,10 @@ public class WorldService {
         this.worldDAO = worldDAO;
     }
 
+    public World createWorld(World world){
+        return worldDAO.save(world);
+    }
+
     public World getWorldValuesById(int id) throws  ClientSideException{
         Optional<World> resultWorld = worldDAO.findById(id);
         if(resultWorld.isEmpty()) throw new ClientSideException();
@@ -37,14 +41,14 @@ public class WorldService {
         if(worldDAO.findById(world.getId()).isEmpty()) throw new ClientSideException();
         World innerWorld = worldDAO.findById(world.getId()).get();
 
-        innerWorld.setF_rank(world.getF_rank());
-        innerWorld.setE_rank(world.getE_rank());
-        innerWorld.setD_rank(world.getD_rank());
-        innerWorld.setC_rank(world.getC_rank());
-        innerWorld.setB_rank(world.getB_rank());
-        innerWorld.setA_rank(world.getA_rank());
-        innerWorld.setS_rank(world.getS_rank());
-        innerWorld.setSs_rank(world.getSs_rank());
+        innerWorld.setF_rank(innerWorld.getF_rank() + world.getF_rank());
+        innerWorld.setE_rank(innerWorld.getE_rank() + world.getE_rank());
+        innerWorld.setD_rank(innerWorld.getD_rank() + world.getD_rank());
+        innerWorld.setC_rank(innerWorld.getC_rank() + world.getC_rank());
+        innerWorld.setB_rank(innerWorld.getB_rank() + world.getB_rank());
+        innerWorld.setA_rank(innerWorld.getA_rank() + world.getA_rank());
+        innerWorld.setS_rank(innerWorld.getS_rank() + world.getS_rank());
+        innerWorld.setSs_rank(innerWorld.getSs_rank() + world.getSs_rank());
 
         worldDAO.save(innerWorld);
         return innerWorld;

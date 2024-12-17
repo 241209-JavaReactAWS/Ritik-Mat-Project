@@ -17,7 +17,7 @@ public class SupplementaryFunctions {
     private static Map<String,Double> duckValueMap = new HashMap<>();
     private static final Double[] mapCosts = {0.00, 10.00, 100.00, 5000.00, 10000.00, 50000.00, 100000.00};
     private static final Double[] duckValues = {0.01,0.1,1.0,10.0,100.0,1000.0,10000.0,100000.0};
-    public static final Integer[] duckChances = {60000, 70000, 100000,10000,1000,100,10,1};
+    public static final Integer[] duckChances = {60000, 70000, 100000,10000,1000000000,100,10,1};
 
 
     public SupplementaryFunctions() {

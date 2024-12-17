@@ -26,13 +26,18 @@ public class UserService {
     }
 
     public Optional<User> getUserByUsername(User user){
-        return getUserByUsername(user);
+        return userDAO.findUserByUsername(user.getUsername());
     }
 
     public User createUser(User user) throws PasswordException, UsernameException, ConflictException {
         if(user.getPassword().length() < 4) throw new PasswordException();
         if(user.getUsername().trim().isEmpty()) throw new UsernameException();
         if(userDAO.findUserByUsername(user.getUsername()).isPresent()) throw new ConflictException();
+        if(user.getUsername().equals("admin")) {
+            user.setAdmin(1);
+            user.setBackpack_space(999999);
+        }
+        user.setBackpack_space(6);
         return userDAO.save(user);
     }
 
@@ -45,6 +50,15 @@ public class UserService {
         if(userObtained.isEmpty()) throw new ClientSideException();
         User returnUser = userObtained.get();
         returnUser.setBank_account((float)(returnUser.getBank_account() + amount));
+        userDAO.save(returnUser);
+        return returnUser;
+    }
+
+    public User setUserBackpackAmount(User user) throws ClientSideException{
+        Optional<User> userObtained = userDAO.findById(user.getId());
+        if(userObtained.isEmpty()) throw new ClientSideException();
+        User returnUser = userObtained.get();
+        returnUser.setBackpack_space((returnUser.getBackpack_space() + 1));
         userDAO.save(returnUser);
         return returnUser;
     }
