@@ -198,3 +198,22 @@ input:focus + button {
 #backpack-storage button:hover{
     background-color: lightpink;
 }
+
+#trash img{
+  background-color: transparent;
+  width: 30px;
+  height: 40px;
+  
+}
+
+#trash{
+  background-color: transparent;
+  margin-top: -10px;
+  border: none;
+}
+#trash:hover{
+  border: 1px solid white;
+}
+.drop-down {
+  background-color: lightblue;
+}

@@ -61,7 +61,8 @@ function populateCards(duckies) {
         <button id="checkmark"><img src="./images/checkmark.png"></button>
         </div>
         <p>Rank: ${card.rank}</p>
-        <p>Value: ${card.value}</p>`;
+        <p>Value: ${card.value}</p>
+        <button id="trash"><img src="./images/trash.png"/></button>`;
 
     cDiv.classList.add("card");
     cDiv.classList.add(`rank${card["rank"]}`);
