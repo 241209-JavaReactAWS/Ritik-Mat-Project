@@ -34,9 +34,11 @@ form{
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    align-items: center;
+    max-width: 100%;
 }
 
-.input{
+input{
     padding: 5px;
     margin-bottom: 25px;
     margin-top: 5px;
@@ -46,7 +48,7 @@ form{
     font-size: 13px;
     max-width: 100%;
     
-}
+} 
 
 
 button{

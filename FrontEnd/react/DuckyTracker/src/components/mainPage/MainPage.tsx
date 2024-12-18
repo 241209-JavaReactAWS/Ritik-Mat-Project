@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom"
 import "./MainPage.css"
+import { useEffect, useState } from "react"
+import { Duck } from "../../interfaces/Duck"
+import axios from "axios"
 
 function MainPage() {
+  const [duck, setDuck] = useState<Duck[]>([])
+
+  useEffect(() => {
+    axios.get<Duck[]>("http://localhost:8080/duck")
+    .then((res) => {
+      setDuck(res.data)
+    })
+  }, [])
+  
   return (
     <div>
       <div className="head">
@@ -22,7 +34,9 @@ function MainPage() {
 
     {/* <!-- <hr> --> */}
     <div id="outer-container">
-      <div id="card-container"></div>
+      <div id="card-container">
+        
+      </div>
       <div id="backpack-storage">
         <button>
           <p>Buy more backpack storage</p>
