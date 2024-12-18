@@ -1,23 +1,30 @@
 package com.revature.Project1.controllers;
 
-import com.revature.Project1.exceptions.ClientSideException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.revature.Project1.exceptions.ConflictException;
 import com.revature.Project1.exceptions.PasswordException;
 import com.revature.Project1.exceptions.UsernameException;
 import com.revature.Project1.models.User;
-import com.revature.Project1.services.DuckService;
 import com.revature.Project1.services.UserService;
-import com.revature.Project1.services.WorldService;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
+@CrossOrigin(origins = "*", maxAge=3600)
 @RestController
+@RequestMapping()
 public class HomepageController {
 
     private final UserService userService;

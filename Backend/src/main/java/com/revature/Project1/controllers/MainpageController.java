@@ -1,5 +1,23 @@
 package com.revature.Project1.controllers;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.revature.Project1.Components.SupplementaryFunctions;
 import com.revature.Project1.exceptions.ClientSideException;
 import com.revature.Project1.models.Duck;
@@ -8,21 +26,9 @@ import com.revature.Project1.models.World;
 import com.revature.Project1.services.DuckService;
 import com.revature.Project1.services.UserService;
 import com.revature.Project1.services.WorldService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge=3600)
 @RequestMapping("backpack")
 @EnableAsync
 public class MainpageController {
@@ -122,7 +128,7 @@ public class MainpageController {
         } catch (ClientSideException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Improper Info");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something Went wrong");
+            return ResponseEntity.status(500).body("Something Went wrong");
         }
     }
 
@@ -138,7 +144,7 @@ public class MainpageController {
         catch (ClientSideException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Improper Info");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something Went wrong");
+            return ResponseEntity.status(500).body("Something Went wrong");
         }
     }
 
