@@ -128,7 +128,7 @@ public class MainpageController {
         } catch (ClientSideException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Improper Info");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something Went wrong");
+            return ResponseEntity.status(500).body("Something Went wrong");
         }
     }
 
@@ -144,7 +144,7 @@ public class MainpageController {
         catch (ClientSideException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Improper Info");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something Went wrong");
+            return ResponseEntity.status(500).body("Something Went wrong");
         }
     }
 
