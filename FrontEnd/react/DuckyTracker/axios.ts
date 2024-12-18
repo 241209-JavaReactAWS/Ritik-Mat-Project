@@ -15,7 +15,7 @@ const backpackInstance = axios.create({
 })
 
 //Check if there is a cookie
-const LoggedIn = () => 
+export const LoggedIn = () => 
     {
         instance.get("")
         .then((response) => {
@@ -30,7 +30,7 @@ const LoggedIn = () =>
     }
 
 //Register a User
-const RegisterUser = (username,password) => 
+export const RegisterUser = (username,password) => 
     {
         instance.post("register", {
             params: {
@@ -55,7 +55,7 @@ const RegisterUser = (username,password) =>
     }
 
 //Log in
-const LogUserIn = (username,password) => 
+export const LogUserIn = (username,password) => 
     {
         instance.get("login", {
             params: {
@@ -77,7 +77,7 @@ const LogUserIn = (username,password) =>
         })
     }
 
-const LoggedOut = () => 
+export const LoggedOut = () => 
     {
         instance.get("logout")
         .then((response) => {
@@ -91,7 +91,7 @@ const LoggedOut = () =>
         })
     }
 
-const getUserInfo = () => 
+export const getUserInfo = () => 
     {
         backpackInstance.get("")
         .then((response) => {
@@ -103,7 +103,7 @@ const getUserInfo = () =>
         })
     }
 
-const searchForDuck = () => 
+export const searchForDuck = () => 
     {
         backpackInstance.post("")
         .then((response) => {
@@ -115,7 +115,7 @@ const searchForDuck = () =>
         })
     }
 
-const renameDuck = (newName,duckId,duckReferenceId) => 
+export const renameDuck = (newName,duckId,duckReferenceId) => 
     {
         backpackInstance.patch("",{
             "id": duckId,
@@ -132,7 +132,7 @@ const renameDuck = (newName,duckId,duckReferenceId) =>
         })
     }
 
-const deleteDuck = (newName,duckId,duckReferenceId) => 
+export const deleteDuck = (newName,duckId,duckReferenceId) => 
     {
         backpackInstance.patch("",{
             "id": duckId,
@@ -148,9 +148,9 @@ const deleteDuck = (newName,duckId,duckReferenceId) =>
         })
     }
 
-const getAllDucksOwned = () =>
+export const getAllDucksOwned = () =>
     {
-        backpackInstance.get("")
+        backpackInstance.get("ducks")
         .then((response) => {
             return response.data;
         })
@@ -159,5 +159,66 @@ const getAllDucksOwned = () =>
             window.location.href = "https://localhost:5173/"
         })
     }
+
+export const increaseDuckAmount = (b,a,s,ss) =>
+    {
+        backpackInstance.patch("ducks",
+            {
+                "b_rank" : b,
+                "a_rank" : a,
+                "s_rank" : s,
+                "ss_rank": ss
+            }
+        )
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            if(error.response.status == 400) return "Invalid Value";
+            if(error.response.status == 401) return "Unauthorized"
+            console.log("How did we get here");
+            window.location.href = "https://localhost:5173/"
+        })
+        
+    }
+
+export const getWorldData = () => 
+    {   
+        backpackInstance.get("world")
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log("How did we get here");
+            window.location.href = "https://localhost:5173/"
+        })
+    }
+
+export const getNextBackpackPrice = () => 
+    {
+        backpackInstance.get("price")
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            if (error.response.status == 400) return "Too Expensive"
+            console.log("How did we get here");
+            window.location.href = "https://localhost:5173/"
+        })
+    }
+
+export const buyNextBackpack = () => 
+    {
+        backpackInstance.get("price")
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log("How did we get here");
+            window.location.href = "https://localhost:5173/"
+        })
+    }
+
+
     
 
