@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import "./Login.css"
 import { SyntheticEvent, useState } from "react"
+import {instance,backpackInstance} from "../../../axios"
 
 function Login() {
   const [username, setUsername] = useState<string>('')
@@ -9,12 +10,25 @@ function Login() {
   let login = () => {
     if(!username){
       alert("Please enter a username")
+      return;
     }
 
     if(!password){
       alert("Please enter a password")
+      return;
     }
 
+    instance.get("login",{withCredentials:true})
+        .then((response) => {
+            if(response.data != "none"){
+                window.location.href = "./backpack"
+            }
+        })
+        .catch((error) => {
+          alert("Username or password was entered incorrectly")
+          return;
+        })
+        
   }
 
   let register = () => {
@@ -25,6 +39,32 @@ function Login() {
     if(!password){
       alert("Please enter a password")
     }
+
+    instance.post("register", {
+      withCredentials: true,
+      params: {
+          "username" : username,
+          "password" : password
+      }
+    })
+    .then((response) => {
+        alert("User Created Successfully");
+        return;
+    })
+    .catch((error) => {
+        if(error.status == 409){
+            alert("Username Already Exists");
+            return;
+        }
+        else if(error.status == 400){
+            alert("Username or Password does not follow formatting");
+            return;
+        }
+        else{
+            return;
+        }
+    })
+
   }
 
   return (

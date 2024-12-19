@@ -1,13 +1,14 @@
 import axios from "axios";
+import HttpResponse from "./src/interfaces/httpResponse";
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: "https://localhost:8080/",
     headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
     }
 })
 
-const backpackInstance = axios.create({
+export const backpackInstance = axios.create({
     baseURL: "https://localhost:8080/backpack",
     headers: {
         'Access-Control-Allow-Origin': '*'
@@ -17,20 +18,26 @@ const backpackInstance = axios.create({
 //Check if there is a cookie
 export const LoggedIn = () => 
     {
-        instance.get("")
+        instance.get("",{withCredentials:true})
         .then((response) => {
             if(response.data != "none"){
                 window.location.href = "./backpack"
-                return response.data
+                return {
+                    "status" : response.status,
+                    "response" : response.data
+                }
             }
         })
         .catch((error) => {
-            console.log("How did we get here");
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
 //Register a User
-export const RegisterUser = (username,password) => 
+export const RegisterUser = (username:string,password:string) => 
     {
         instance.post("register", {
             params: {
@@ -39,23 +46,35 @@ export const RegisterUser = (username,password) =>
             }
         })
         .then((response) => {
-            return "Success"
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
             if(error.response.status == 409){
-                return "Username Taken";
+                return {
+                    "status" : error.response.status,
+                    "response" : "Username Already Exists"
+                }
             }
             else if(error.response.status == 400){
-                return "Username or Password Does Not Follow Formatting"
+                return {
+                    "status" : error.response.status,
+                    "response" : "Username or Password does not follow formatting"
+                }
             }
             else{
-                return "What have you done?"
+                return {
+                    "status" : error.response.status,
+                    "response" : "What have you done"
+                }
             }
         })
     }
 
 //Log in
-export const LogUserIn = (username,password) => 
+export const LogUserIn = (username:string,password:string) => 
     {
         instance.get("login", {
             params: {
@@ -64,15 +83,23 @@ export const LogUserIn = (username,password) =>
             }
         })
         .then((response) => {
-            window.location.href = "./backpack"
-            return "Success"
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
             if(error.response.status == 400){
-                return "Username or Password Does Not Follow Formatting"
+                return {
+                    "status" : error.response.status,
+                    "response" : "Invalid User Data"
+                }
             }
             else{
-                return "What have you done?"
+                return {
+                    "status" : error.response.status,
+                    "response" : "What have you done"
+                }
             }
         })
     }
@@ -83,11 +110,17 @@ export const LoggedOut = () =>
         .then((response) => {
             if(response.data != "none"){
                 window.location.href = "https://localhost:5173/"
-                return response.data
+                return {
+                    "status" : response.status,
+                    "response" : response.data
+                }
             }
         })
         .catch((error) => {
-            console.log("How did we get here");
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
@@ -95,11 +128,17 @@ export const getUserInfo = () =>
     {
         backpackInstance.get("")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
             window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
@@ -107,15 +146,21 @@ export const searchForDuck = () =>
     {
         backpackInstance.post("")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
             window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
-export const renameDuck = (newName,duckId,duckReferenceId) => 
+export const renameDuck = (newName:string,duckId:number,duckReferenceId:number) => 
     {
         backpackInstance.patch("",{
             "id": duckId,
@@ -123,16 +168,27 @@ export const renameDuck = (newName,duckId,duckReferenceId) =>
             "referenceId" : duckReferenceId
         })
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            if(error.response.status == 400) return "Name Too Short"
-            console.log("How did we get here");
+            if(error.response.status == 400){ 
+                return {
+                    "status" : error.response.status,
+                    "response" : "Name too short"
+                }
+            }
             window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "What have you done"
+            }
         })
     }
 
-export const deleteDuck = (newName,duckId,duckReferenceId) => 
+export const deleteDuck = (newName:string,duckId:number,duckReferenceId:number) => 
     {
         backpackInstance.patch("",{
             "id": duckId,
@@ -140,11 +196,17 @@ export const deleteDuck = (newName,duckId,duckReferenceId) =>
             "referenceId" : duckReferenceId
         })
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
             window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "What have you done"
+            }
         })
     }
 
@@ -152,15 +214,21 @@ export const getAllDucksOwned = () =>
     {
         backpackInstance.get("ducks")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
             window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "What have you done"
+            }
         })
     }
 
-export const increaseDuckAmount = (b,a,s,ss) =>
+export const increaseDuckAmount = (b:number,a:number,s:number,ss:number) =>
     {
         backpackInstance.patch("ducks",
             {
@@ -171,13 +239,28 @@ export const increaseDuckAmount = (b,a,s,ss) =>
             }
         )
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            if(error.response.status == 400) return "Invalid Value";
-            if(error.response.status == 401) return "Unauthorized"
-            console.log("How did we get here");
-            window.location.href = "https://localhost:5173/"
+            if(error.response.status == 400){
+                return {
+                    "status" : error.response.status,
+                    "response" : "Invalid Value"
+                }
+            } 
+            if(error.response.status == 401){
+                return {
+                    "status" : error.response.status,
+                    "response" : "Unauthorized"
+                }
+            }
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
         
     }
@@ -186,11 +269,16 @@ export const getWorldData = () =>
     {   
         backpackInstance.get("world")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
-            window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
@@ -198,12 +286,22 @@ export const getNextBackpackPrice = () =>
     {
         backpackInstance.get("price")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            if (error.response.status == 400) return "Too Expensive"
-            console.log("How did we get here");
-            window.location.href = "https://localhost:5173/"
+            if (error.response.status == 400){
+                return {
+                    "status" : error.response.status,
+                    "response" : "Too Expensive"
+                }
+            }
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 
@@ -211,11 +309,16 @@ export const buyNextBackpack = () =>
     {
         backpackInstance.get("price")
         .then((response) => {
-            return response.data;
+            return {
+                "status" : response.status,
+                "response" : response.data
+            }
         })
         .catch((error) => {
-            console.log("How did we get here");
-            window.location.href = "https://localhost:5173/"
+            return {
+                "status" : error.response.status,
+                "response" : "How did we get here"
+            }
         })
     }
 

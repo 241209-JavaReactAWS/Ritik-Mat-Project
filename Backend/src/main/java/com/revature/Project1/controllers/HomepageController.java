@@ -22,7 +22,7 @@ import com.revature.Project1.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
-@CrossOrigin(origins = "*", maxAge=3600)
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping()
 public class HomepageController {

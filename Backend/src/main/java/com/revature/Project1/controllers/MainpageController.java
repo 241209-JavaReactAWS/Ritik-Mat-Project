@@ -28,7 +28,7 @@ import com.revature.Project1.services.UserService;
 import com.revature.Project1.services.WorldService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge=3600)
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RequestMapping("backpack")
 @EnableAsync
 public class MainpageController {
