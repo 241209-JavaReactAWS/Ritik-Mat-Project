@@ -9,10 +9,10 @@ function Login() {
   const [password, setPassword] = useState<string>('')
 
   //UNCOMMENT FOR INSTA LOGIN BASED ON COOKIE
-  // useEffect(()=>{
-  //   axios.get("http://localhost:8080/",{withCredentials:true})
-  //   .then(()=>{ window.location.href = "./FrontEnd/react/DuckyTracker/src/components/mainPage/MainPage.tsx"})
-  // })
+  useEffect(()=>{
+    axios.get("http://localhost:8080/",{withCredentials:true})
+    .then(()=>{ window.location.href = "./FrontEnd/react/DuckyTracker/src/components/mainPage/MainPage.tsx"})
+  })
 
   let login = () => {
     if(!username){

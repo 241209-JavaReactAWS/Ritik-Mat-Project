@@ -47,6 +47,8 @@ public class MainpageController {
 
     @GetMapping(value = "")
     public ResponseEntity getUserInfoById(@CookieValue(value = "project1LoginCookie", defaultValue = "none") String cookie){
+        System.out.println("1 " + cookie);
+
         Optional<User> resultUser;
         try{
             resultUser = userService.getUserById(Integer.parseInt(cookie));
@@ -63,10 +65,11 @@ public class MainpageController {
 
         //USER AUTHORIZATION
         Optional<User> resultUser;
+        System.out.println(cookie);
         try{
             resultUser = userService.getUserById(Integer.parseInt(cookie));
         } catch (Exception e){
-            return ResponseEntity.status(500).body("Something went wrong");
+            return ResponseEntity.status(500).body("Id Not Found");
         }
         if(resultUser.isEmpty()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
 
@@ -84,7 +87,7 @@ public class MainpageController {
             List<Duck> resultDucks = duckService.getDucksByForeignId(Integer.parseInt(cookie));
             if(resultUser.get().getBackpack_space() < resultDucks.size()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Backpack Too Full");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Something Went Wrong");
+            return ResponseEntity.status(500).body("Something Went Wrong 2");
         }
 
         // Calculating Duck Obtained
@@ -105,7 +108,7 @@ public class MainpageController {
             if(duckRank.equals("SS")) updatedWorld.setB_rank(updatedWorld.getSs_rank() - 1);
             worldService.setWorldValues(updatedWorld);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Something Went Wrong");
+            return ResponseEntity.status(500).body("Something Went Wrong 3");
         }
 
         try{
@@ -115,7 +118,7 @@ public class MainpageController {
         }
         catch (Exception e){
             Thread.currentThread().interrupt();
-            return ResponseEntity.status(500).body("Something Went Wrong");
+            return ResponseEntity.status(500).body("Something Went Wrong 4");
         }
     }
 
