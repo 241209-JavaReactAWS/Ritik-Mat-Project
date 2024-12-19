@@ -50,7 +50,7 @@ public class HomepageController {
         }
     }
 
-    @GetMapping(value = "login")
+    @PostMapping(value = "login")
     public ResponseEntity loginAccount(@RequestBody User user,HttpServletResponse servlet){
             Optional<User> resultUser = userService.getUserByUsername(user);
             if(resultUser.isEmpty()){

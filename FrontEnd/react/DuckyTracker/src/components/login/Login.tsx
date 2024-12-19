@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom"
 import "./Login.css"
-import { SyntheticEvent, useState } from "react"
+import axios from "axios"
+import { SyntheticEvent, useEffect, useState } from "react"
 import {instance,backpackInstance} from "../../../axios"
 
 function Login() {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+
+  //UNCOMMENT FOR INSTA LOGIN BASED ON COOKIE
+  // useEffect(()=>{
+  //   axios.get("http://localhost:8080/",{withCredentials:true})
+  //   .then(()=>{ window.location.href = "./FrontEnd/react/DuckyTracker/src/components/mainPage/MainPage.tsx"})
+  // })
 
   let login = () => {
     if(!username){
@@ -17,16 +24,16 @@ function Login() {
       alert("Please enter a password")
       return;
     }
+    console.log(password)
+    console.log(username)
 
-    instance.get("login",{withCredentials:true})
-        .then((response) => {
-            if(response.data != "none"){
-                window.location.href = "./backpack"
-            }
+    axios.post("http://localhost:8080/login",{"username" : username,"password" : password},
+      {withCredentials:true,})
+      .then((response) => {
+            if(response.data != "none"){ window.location.href = "./FrontEnd/react/DuckyTracker/src/components/mainPage/MainPage.tsx"}
         })
-        .catch((error) => {
-          alert("Username or password was entered incorrectly")
-          return;
+        .catch((error) => { alert("Username or password was entered incorrectly");
+          
         })
         
   }
@@ -40,17 +47,9 @@ function Login() {
       alert("Please enter a password")
     }
 
-    instance.post("register", {
-      withCredentials: true,
-      params: {
-          "username" : username,
-          "password" : password
-      }
-    })
-    .then((response) => {
-        alert("User Created Successfully");
-        return;
-    })
+    axios.post("http://localhost:8080/register",{"username" : username,"password" : password},
+      {withCredentials:true,})
+    .then((response) => {alert("User Created Successfully");})
     .catch((error) => {
         if(error.status == 409){
             alert("Username Already Exists");
