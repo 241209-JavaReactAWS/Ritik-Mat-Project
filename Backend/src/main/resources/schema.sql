@@ -30,6 +30,4 @@ CREATE TABLE worlds{
     PRIMARY KEY (id)
 };
 
-INSERT INTO users (username,password,admin) VALUES ("admin","admin",1);
-INSERT INTO worlds (f_rank,e_rank,d_rank,c_rank) VALUES (1,1,1,1);
 

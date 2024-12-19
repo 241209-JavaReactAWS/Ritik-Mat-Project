@@ -51,7 +51,7 @@ public class MainpageController {
         try{
             resultUser = userService.getUserById(Integer.parseInt(cookie));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+            return ResponseEntity.status(500).body("Something went wrong");
         }
         if(resultUser.isEmpty()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         return ResponseEntity.status(HttpStatus.OK).body(resultUser);
@@ -66,7 +66,7 @@ public class MainpageController {
         try{
             resultUser = userService.getUserById(Integer.parseInt(cookie));
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+            return ResponseEntity.status(500).body("Something went wrong");
         }
         if(resultUser.isEmpty()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
 
@@ -87,6 +87,7 @@ public class MainpageController {
             return ResponseEntity.status(500).body("Something Went Wrong");
         }
 
+        // Calculating Duck Obtained
         String duckRank = supFunctions.obtainDuckRank(supFunctions.rollForDuck());
         Map<String,Integer> duckAmounts = world.convertToMap();
         Boolean duckAvailable = supFunctions.duckAvailable(duckRank,duckAmounts);

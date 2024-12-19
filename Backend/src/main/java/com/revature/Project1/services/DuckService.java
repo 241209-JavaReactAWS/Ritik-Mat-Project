@@ -1,6 +1,7 @@
 package com.revature.Project1.services;
 
 import com.revature.Project1.daos.DuckDAO;
+import com.revature.Project1.exceptions.AuthorizationException;
 import com.revature.Project1.exceptions.ClientSideException;
 import com.revature.Project1.models.Duck;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class DuckService {
     }
 
 
-    public Optional<Duck> setDuckNicknameById(Duck duck) throws ClientSideException {
+    public Optional<Duck> setDuckNicknameById(Duck duck) throws ClientSideException, AuthorizationException {
         Optional<Duck> resultDuck = duckDAO.findById(duck.getId());
         if(resultDuck.isEmpty()) throw new ClientSideException();
-        if(duck.getReference_id() != resultDuck.get().getReference_id()) throw new ClientSideException();
+        if(duck.getReference_id() != resultDuck.get().getReference_id()) throw new AuthorizationException();
         if(duck.getNickname().trim().isEmpty()) throw new ClientSideException();
         Duck innerDuck = resultDuck.get();
         innerDuck.setNickname(duck.getNickname());
