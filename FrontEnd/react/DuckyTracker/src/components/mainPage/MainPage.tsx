@@ -4,11 +4,17 @@ import { useEffect, useState } from "react"
 import { Duck } from "../../interfaces/Duck"
 import axios from "axios"
 
+async function updateCash() {
+  await axios.get("http://localhost:8080/backpack",{withCredentials:true})
+  
+}
+
 function MainPage() {
   const [duck, setDuck] = useState<Duck[]>([])
+  const [cash, setCash] = useState<number>(0.0)
 
   useEffect(() => {
-    axios.get<Duck[]>("http://localhost:8080/duck")
+    axios.get<Duck[]>("http://localhost:8080/ducks")
     .then((res) => {
       setDuck(res.data)
     })
@@ -17,7 +23,7 @@ function MainPage() {
   return (
     <div>
       <div className="head">
-      <p id="balance">Balance: $$$$$</p>
+      <p id="balance">Balance: {cash}</p>
       <select>
         <option value="" selected disabled hidden className="drop-down">Search</option>
         <table>
@@ -40,12 +46,13 @@ function MainPage() {
       <div id="backpack-storage">
         <button>
           <p>Buy more backpack storage</p>
-          <p>$$$$</p>
+          <p>$$$</p>
         </button>
       </div>
     </div>
     </div>
   )
 }
+
 
 export default MainPage

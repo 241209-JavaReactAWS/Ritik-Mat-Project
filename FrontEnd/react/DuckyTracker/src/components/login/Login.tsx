@@ -24,17 +24,14 @@ function Login() {
       alert("Please enter a password")
       return;
     }
-    console.log(password)
-    console.log(username)
 
     axios.post("http://localhost:8080/login",{"username" : username,"password" : password},
-      {withCredentials:true,})
+      {withCredentials:true})
       .then((response) => {
             if(response.data != "none"){ window.location.href = "./FrontEnd/react/DuckyTracker/src/components/mainPage/MainPage.tsx"}
         })
         .catch((error) => { alert("Username or password was entered incorrectly");
-          
-        })
+      })
         
   }
 
@@ -48,20 +45,11 @@ function Login() {
     }
 
     axios.post("http://localhost:8080/register",{"username" : username,"password" : password},
-      {withCredentials:true,})
+      {withCredentials:true})
     .then((response) => {alert("User Created Successfully");})
     .catch((error) => {
-        if(error.status == 409){
-            alert("Username Already Exists");
-            return;
-        }
-        else if(error.status == 400){
-            alert("Username or Password does not follow formatting");
-            return;
-        }
-        else{
-            return;
-        }
+        if(error.status == 409){alert("Username Already Exists");}
+        else if(error.status == 400){alert("Username or Password does not follow formatting");}
     })
 
   }
