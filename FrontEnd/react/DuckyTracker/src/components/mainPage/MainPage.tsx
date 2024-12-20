@@ -16,14 +16,15 @@ function LogOut(){
   .then(() => window.location.href = "http://localhost:5173")
 }
 
+
 function Search(){
-  let buttons = document.getElementById("logout-button")
   axios.post("http://localhost:8080/backpack",{},{withCredentials:true})
   .then((response) => {alert("Searching for Duck")})
   .catch((error) => {
       alert(error.data)
   })
 }
+
 
 function MainPage() {
   const [duck, setDuck] = useState<Duck[]>([])
@@ -32,12 +33,19 @@ function MainPage() {
   const [s_amount, setS] = useState<number>(0.0)
   const [a_amount, setA] = useState<number>(0.0)
   const [b_amount, setB] = useState<number>(0.0)
+  const [admin, setAdmin] = useState<number>(0)
+  const [duckAmount, setDuckAmount] = useState<string>('')
+
+  const handleDuckChange = (event:any) => {
+    setDuckAmount(event.target.value)
+  }
 
   useEffect(() => {
       //Obtain Bank Value
       axios.get("http://localhost:8080/backpack",{withCredentials:true})
       .then((response)=>{
         setCash(response.data["bank_account"])
+        setAdmin(response.data["admin"])
       })
       //Create Interval to Continuously Get Bank Account
       const interval = setInterval(()=> {
@@ -81,22 +89,50 @@ function MainPage() {
 
   }, )
 }
-  
+  function UpdateWorld(){
+    let dropdown = (document.getElementById("duck-chooser")) as HTMLSelectElement
+    let chosenValue = (dropdown.options[dropdown.selectedIndex]).value
+
+    console.log(chosenValue);
+    let data = {"id": "1",
+                "ss_rank" : "0",
+                "s_rank" : "0",
+                "a_rank" : "0",
+                "b_rank" : "0"
+    };
+    if(chosenValue == "") return;
+    if(chosenValue == "SS") data["ss_rank"] = duckAmount
+    if(chosenValue == "S") data["s_rank"] = duckAmount
+    if(chosenValue == "A") data["a_rank"] = duckAmount
+    if(chosenValue == "B") data["b_rank"] = duckAmount
+
+    axios.patch("http://localhost:8080/backpack/ducks",data,{withCredentials:true})
+    .then((response) => {alert("Updated Ducks")})
+    .catch((error) => console.log(error))
+    
+  }
   return (
     <>
     <div>
       <div className="head">
       <p id="balance">Balance: {cash}</p>
-      <select>
+      <select id="duck-chooser">
         <option value="" selected  className="drop-down">Search</option>
-        <option>SS: {ss_amount}</option>
-        <option>S:  {s_amount}</option>
-        <option>A:  {a_amount}</option> 
-        <option>B:  {b_amount}</option>
+        <option value="SS">SS: {ss_amount}</option>
+        <option value="S">S:  {s_amount}</option>
+        <option value="A">A:  {a_amount}</option> 
+        <option value="B">B:  {b_amount}</option>
     </select>
-
-
-
+      {
+        admin == 1 ? (
+           <>
+            <div id="valueInputContainer">
+              <input id="value-input" type="text" onChange={handleDuckChange} value={duckAmount}/>
+              <button id="logout-button" onClick={UpdateWorld}>Change</button>
+            </div>
+          </>
+        ) : (<span></span>)
+      }
       <button id="logout-button" onClick={Search}>Search</button>
       <button id="logout-button" onClick={LogOut}>Logout</button>
       
@@ -109,7 +145,6 @@ function MainPage() {
        {duck.map((card) => {
         return (
           <div key={card.id}>
-            
           if(card.rank === "SS"){
             <img src="./images/rank-SS.png"></img>
           }
