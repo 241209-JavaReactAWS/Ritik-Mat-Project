@@ -39,14 +39,14 @@ function MainPage() {
       //Obtain Bank Value
       axios.get("http://localhost:8080/backpack",{withCredentials:true})
       .then((response)=>{
-        setCash(response.data["bank_account"])
+        Math.floor(response.data["bank_account"])
         setAdmin(response.data["admin"])
       })
       //Create Interval to Continuously Get Bank Account
       const interval = setInterval(()=> {
           axios.get("http://localhost:8080/backpack",{withCredentials:true})
           .then((response)=>{
-            setCash(response.data["bank_account"])
+            setCash(Math.floor(response.data["bank_account"]))
           })
 
           axios.get("http://localhost:8080/backpack/world",{withCredentials:true})
@@ -58,7 +58,7 @@ function MainPage() {
         })
 
         axios.get("http://localhost:8080/backpack/price",{withCredentials:true}).then(
-          (response) => {setBackpackCost(response.data)}
+          (response) => {setBackpackCost(Math.ceil(response.data))}
         )
         },2000)
 

@@ -211,7 +211,7 @@ public class MainpageController {
             Optional<User> resultUser = userService.getUserById(Integer.parseInt(cookie));
             if (resultUser.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Improper Info");
             double backpackPrice = Math.pow(1.5,resultUser.get().getBackpack_space() - 5.0);
-            backpackPrice = Math.round(backpackPrice * -100.0) / 100.0;
+            backpackPrice = (Math.round(backpackPrice * 100.0) / 100.0) * -1;
             if(backpackPrice * -1 > resultUser.get().getBank_account()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Too Expensive");
             User user = userService.setUserBankAccount(resultUser.get(),backpackPrice);
             user = userService.setUserBackpackAmount(user);
