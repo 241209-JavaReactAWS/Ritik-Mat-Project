@@ -1,41 +1,44 @@
 import { JSXElementConstructor, useEffect, useState } from "react"
 import { Duck } from "../../interfaces/Duck"
 import axios from "axios"
-
-function Card(rank: string, id: number) {
-    const [duck, setDuck] = useState<Duck[]>([])
-    useEffect(() => {
-        axios.get<Duck[]>("http://localhost:8080/backpack/ducks",{withCredentials:true})
-        .then((res) => {
-          setDuck(res.data)
-        })
-      }, [])
+import rankSS from "./images/rank-SS.png"
+import rankS from "./images/rank-S.png"
+import rankA from "./images/rank-A.png"
+import rankD from "./images/rank-D.png"
+import rankB from "./images/rank-B.png"
+import rankC from "./images/rank-C.png"
+import rankE from "./images/rank-E.png"
+import rankF from './images/rank-F.png'
+import checkmark from "./images/checkmark.png"
+import trash from "./images/trash.png"
+import "./Card.css"
+function Card(props: any) {
 
       let getUrl = (rank: string) =>   {
         
           if(rank === "SS"){
-            return "./images/rank-SS.png"
+            return rankSS
           }
           if(rank === "S"){
-            return "./images/rank-S.png"
+            return rankS
           }
           if(rank === "A"){
-            return "./images/rank-A.png"
+            return rankA
           }
           if(rank === "B"){
-            return "./images/rank-B.png"
+            return rankB
           }
           if(rank === "C"){
-             return "./images/rank-C.png"
+             return rankC
           }
           if(rank === "D"){
-             return "./images/rank-D.png"
+             return rankD
           }
           if(rank === "E"){
-             return "./images/rank-E.png"
+             return rankE
           }
           if(rank === "F"){
-             return "./images/rank-F.png"
+             return rankF
           }
         }
 
@@ -70,6 +73,33 @@ function Card(rank: string, id: number) {
         return id;
     }
 
+    let className = (rank: string) =>{
+        if(rank === "SS"){
+            return "rankSS" 
+          }
+          if(rank === "S"){
+            return "rankS" 
+          }
+          if(rank === "A"){
+            return "rankA" 
+          }
+          if(rank === "B"){
+            return "rankB" 
+          }
+          if(rank === "C"){
+            return "rankC" 
+          }
+          if(rank === "D"){
+            return "rankD" 
+          }
+          if(rank === "E"){
+            return "rankE" 
+          }
+          if(rank === "F"){
+            return "rankF" 
+          }
+    }
+
           
         
         
@@ -80,11 +110,15 @@ function Card(rank: string, id: number) {
     
   return (
     <div>
-      <div id={storeId.toString()}>
-        <img src={getUrl(rank)}></img>
-        <p>{}</p>
-
-
+      <div className={className(props.duck.rank)}>
+        <img src={getUrl(props.duck.rank)}></img>
+        <div className="name-change">
+        <input type="text" placeholder={props.duck.nickname} name="name"/> 
+        <button id="checkmark"><img src={checkmark}/></button>
+        </div>
+        <p>Rank: {props.duck.rank}</p>
+        <p>Value: {getValue(props.duck.rank)}</p>
+        <button id="trash"><img src={trash}/></button>
       </div>
     </div>
   )

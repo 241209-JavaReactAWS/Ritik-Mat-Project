@@ -1,0 +1,47 @@
+.rankSS {
+    background: rgb(30, 144, 255);
+    background: linear-gradient(
+      315deg,
+      rgba(30, 144, 255, 1) 0%,
+      rgba(153, 186, 221, 1) 100%
+    );
+    transition: 0.6s;
+  }
+  .rankS {
+    background-color: #e4b5cb;
+    background-image: linear-gradient(315deg, #e4b5cb 0%, #722ae6 74%);
+    transition: 0.6s;
+  }
+  .rankA {
+    background-color: #fec84e;
+    background-image: linear-gradient(315deg, #fec84e 0%, #ffdea8 74%);
+    transition: 0.6s;
+  }
+  .rankB {
+    background-color: darkred;
+    transition: 0.6s;
+  }
+  .rankC {
+    background-color: darkblue;
+    transition: 0.6s;
+  }
+  .rankD {
+    background-color: orange;
+    transition: 0.6s;
+  }
+  .rankE {
+    background-color: green;
+    transition: 0.6s;
+  }
+  .rankF {
+    background-color: gray;
+    transition: 0.6s;
+  }
+  .card p {
+    font-size: x-large;
+    color: #fff;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,
+      -1px -1px 0 #000;
+    transition: 0.6s;
+    margin: 10px;
+  }
