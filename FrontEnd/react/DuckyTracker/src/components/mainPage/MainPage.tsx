@@ -4,12 +4,6 @@ import { useEffect, useState } from "react"
 import { Duck } from "../../interfaces/Duck"
 import axios from "axios"
 
-async function obtainUserData() {
-  await axios.get("http://localhost:8080/backpack",{withCredentials:true})
-  .then((response)=>{
-    return response.data
-  })
-}
 
 function LogOut(){
   axios.get("http://localhost:8080/logout",{withCredentials:true})
@@ -35,6 +29,7 @@ function MainPage() {
   const [b_amount, setB] = useState<number>(0.0)
   const [admin, setAdmin] = useState<number>(0)
   const [duckAmount, setDuckAmount] = useState<string>('')
+  const [backpackCost, setBackpackCost] = useState<number>(0)
 
   const handleDuckChange = (event:any) => {
     setDuckAmount(event.target.value)
@@ -49,23 +44,26 @@ function MainPage() {
       })
       //Create Interval to Continuously Get Bank Account
       const interval = setInterval(()=> {
-        axios.get("http://localhost:8080/backpack",{withCredentials:true})
-        .then((response)=>{
-          setCash(response.data["bank_account"])
-        })
-      },10000)
+          axios.get("http://localhost:8080/backpack",{withCredentials:true})
+          .then((response)=>{
+            setCash(response.data["bank_account"])
+          })
 
-      const interval2 = setInterval(()=> {
-        axios.get("http://localhost:8080/backpack/world",{withCredentials:true})
+          axios.get("http://localhost:8080/backpack/world",{withCredentials:true})
         .then((response)=>{
           setSs(response.data["ss_rank"])
           setS(response.data["s_rank"])
           setA(response.data["a_rank"])
           setB(response.data["b_rank"])
         })
-      },10000)
 
-      return () => {clearInterval(interval);clearInterval(interval2)}
+        axios.get("http://localhost:8080/backpack/price",{withCredentials:true}).then(
+          (response) => {setBackpackCost(response.data)}
+        )
+        },2000)
+
+     
+      return () => {clearInterval(interval)}
   })
 
 
@@ -77,18 +75,17 @@ function MainPage() {
   }, [])
 
   let buyStroage = () => {
-  useEffect(() => {
-    axios.patch<number>("http://localhost:8080/backpack/price", cash)
+  
+    axios.patch<number>("http://localhost:8080/backpack/price", cash, {withCredentials:true})
     .then((res) => {
-      setCash(res.data)
+      alert("Bought Storage!")
     })
     .catch((err) => {
       console.log(err)
       alert("Insufficient funds")
-    })
-
-  }, )
+    }) 
 }
+
   function UpdateWorld(){
     let dropdown = (document.getElementById("duck-chooser")) as HTMLSelectElement
     let chosenValue = (dropdown.options[dropdown.selectedIndex]).value
@@ -203,7 +200,7 @@ function MainPage() {
       <div id="backpack-storage">
         <button onClick={buyStroage}>
           <p>Buy more backpack storage</p>
-          <p>$$$</p>
+          <p>{backpackCost}</p>
         </button>
       </div>
     </div>
