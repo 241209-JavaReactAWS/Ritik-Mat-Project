@@ -142,56 +142,56 @@ function MainPage() {
        {duck.map((card) => {
         return (
           <div key={card.id}>
-        if(card.rank === "SS"){
-          <img src="./images/rank-SS.png"></img>
-        }
-        if(card.rank === "S"){
-          <img src="./images/rank-S.png"></img>
-        }
-        if(card.rank === "A"){
-          <img src="./images/rank-A.png"></img>
-        }
-        if(card.rank === "B"){
-          <img src="./images/rank-B.png"></img>
-        }
-        if(card.rank === "C"){
-          <img src="./images/rank-C.png"></img>
-        }
-        if(card.rank === "D"){
-          <img src="./images/rank-D.png"></img>
-        }
-        if(card.rank === "E"){
-          <img src="./images/rank-E.png"></img>
-        }
-        if(card.rank === "F"){
-          <img src="./images/rank-F.png"></img>
-        }
-        <p>{card.nickname}</p>
-        <p>{card.rank}</p>
-        if(card.rank === "SS"){
-          <p>Value: 100000.0 </p>
-        }
-        if(card.rank === "S"){
-          <p>Value: 10000.0 </p>
-        }
-        if(card.rank === "A"){
-          <p>Value: 1000.0 </p>
-        }
-        if(card.rank === "B"){
-          <p>Value: 100.0 </p>
-        }
-        if(card.rank === "C"){
-          <p>Value: 10.0 </p>
-        }
-        if(card.rank === "D"){
-          <p>Value: 1.0 </p>
-        }
-        if(card.rank === "E"){
-          <p>Value: 0.1 </p>
-        }
-        if(card.rank === "F"){
-          <p>Value: 0.01 </p>
-        }
+          if(card.rank === "SS"){
+            <img src="./images/rank-SS.png"></img>
+          }
+          if(card.rank === "S"){
+            <img src="./images/rank-S.png"></img>
+          }
+          if(card.rank === "A"){
+            <img src="./images/rank-A.png"></img>
+          }
+          if(card.rank === "B"){
+            <img src="./images/rank-B.png"></img>
+          }
+          if(card.rank === "C"){
+            <img src="./images/rank-C.png"></img>
+          }
+          if(card.rank === "D"){
+            <img src="./images/rank-D.png"></img>
+          }
+          if(card.rank === "E"){
+            <img src="./images/rank-E.png"></img>
+          }
+          if(card.rank === "F"){
+            <img src="./images/rank-F.png"></img>
+          }
+          <p>{card.nickname}</p>
+          <p>{card.rank}</p>
+          if(card.rank === "SS"){
+            <p>Value: 100000.0 </p>
+          }
+          if(card.rank === "S"){
+            <p>Value: 10000.0 </p>
+          }
+          if(card.rank === "A"){
+            <p>Value: 1000.0 </p>
+          }
+          if(card.rank === "B"){
+            <p>Value: 100.0 </p>
+          }
+          if(card.rank === "C"){
+            <p>Value: 10.0 </p>
+          }
+          if(card.rank === "D"){
+            <p>Value: 1.0 </p>
+          }
+          if(card.rank === "E"){
+            <p>Value: 0.1 </p>
+          }
+          if(card.rank === "F"){
+            <p>Value: 0.01 </p>
+          }
           </div>
         )
         
