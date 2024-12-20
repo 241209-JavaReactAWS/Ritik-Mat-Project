@@ -9,18 +9,23 @@ body {
   .head {
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
+    align-items: center;
     justify-content: space-around;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 0;
     color: white;
+    padding: 5px;
+    border: white solid 3px;
+    border-radius: 5px;
+    background-color: rgba(255, 208, 249,0.8);
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,
       -1px -1px 0 #000;
   }
   
   #card-container {
     width: 1000px;
-  
+    margin-top: 0;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -66,6 +71,22 @@ body {
     border-radius: 50%;
     margin: 10px;
     cursor: pointer;
+  }
+
+  #valueInputContainer{
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  #value-input{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    width: 70px;
+    height:40px;
+    text-align: center;
+    font-size: small;
   }
   
   .rankSS {
@@ -117,7 +138,8 @@ body {
   }
   #outer-container {
     width: 1000px;
-    border: 2px solid white;
+    background-color: rgba(255, 208, 249,0.8);
+    border: 3px solid white;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -125,11 +147,11 @@ body {
     justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0;
     overflow-y: scroll;
     scrollbar-width: thin;
     max-height: 80vh;
     position: relative;
-    margin-top: 20px;
   }
   .card img {
     width: 150px;
@@ -220,6 +242,7 @@ body {
   
   #logout-button{
     background-color: transparent;
+    margin-top: 0;
     width: 100px;
     border: 1px solid white;
     color: white;
