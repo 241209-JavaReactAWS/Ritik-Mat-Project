@@ -109,6 +109,7 @@ function MainPage() {
        {duck.map((card) => {
         return (
           <div key={card.id}>
+            
           if(card.rank === "SS"){
             <img src="./images/rank-SS.png"></img>
           }
