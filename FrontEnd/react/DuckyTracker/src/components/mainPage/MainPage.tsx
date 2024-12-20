@@ -140,11 +140,14 @@ function MainPage() {
     {/* <!-- <hr> --> */}
     <div id="outer-container">
       <div id="card-container">
+        
        {ducks.map((card: Duck) => {
         return(
-        <Card duck={card}></Card>
+         <div className="card"> 
+        <Card duck={card}></Card></div>
         )
        })} 
+       
       </div>
       <div id="backpack-storage">
         <button onClick={buyStroage}>
