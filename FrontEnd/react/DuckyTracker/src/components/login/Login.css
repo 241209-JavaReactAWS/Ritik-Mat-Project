@@ -38,14 +38,13 @@ form{
     max-width: 100%;
 }
 
-input{
+form input{
     padding: 5px;
     margin-bottom: 25px;
     margin-top: 5px;
     border: none;
     border-radius: 10px;
     background: white;
-    font-size: 13px;
     max-width: 100%;
     
 } 
