@@ -115,7 +115,7 @@ function MainPage() {
       <div className="head">
       <p id="balance">Balance: {cash}</p>
       <select id="duck-chooser">
-        <option value="" selected  className="drop-down">Search</option>
+        <option value=""  className="drop-down">Search</option>
         <option value="SS">SS: {ss_amount}</option>
         <option value="S">S:  {s_amount}</option>
         <option value="A">A:  {a_amount}</option> 
@@ -139,12 +139,13 @@ function MainPage() {
 
     {/* <!-- <hr> --> */}
     <div id="outer-container">
-      <div id="card-container">
+      <div id="card-container" >
         
        {ducks.map((card: Duck) => {
         return(
          <div className="card"> 
-        <Card duck={card}></Card></div>
+        <Card duck={card}></Card>
+        </div>
         )
        })} 
        

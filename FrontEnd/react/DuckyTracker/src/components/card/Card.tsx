@@ -13,6 +13,8 @@ import checkmark from "./images/checkmark.png"
 import trash from "./images/trash.png"
 import "./Card.css"
 function Card(props: any) {
+  const[ nickname, setNickname] = useState<string>('')
+  
 
       let getUrl = (rank: string) =>   {
         
@@ -100,6 +102,28 @@ function Card(props: any) {
           }
     }
 
+    let updateNickname = () =>{
+      axios.patch("http://localhost:8080/backpack", {withCredentials: true})
+      .then((response) => {
+        setNickname(response.data.nickname)
+      })
+      .catch((err) =>{
+        console.log(err)
+      })
+
+    }
+
+    let deleteCard = () => {
+      axios.delete("http://localhost:8080/backpack", {withCredentials: true})
+      .then(response => {
+        console.log("Card deleted")
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+
           
         
         
@@ -114,11 +138,11 @@ function Card(props: any) {
         <img src={getUrl(props.duck.rank)}></img>
         <div className="name-change">
         <input type="text" placeholder={props.duck.nickname} name="name"/> 
-        <button id="checkmark"><img src={checkmark}/></button>
+        <button id="checkmark" onClick={updateNickname}><img src={checkmark}/></button>
         </div>
         <p>Rank: {props.duck.rank}</p>
         <p>Value: {getValue(props.duck.rank)}</p>
-        <button id="trash"><img src={trash}/></button>
+        <button id="trash" onClick={deleteCard}><img src={trash}/></button>
       </div>
     </div>
   )
