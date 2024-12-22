@@ -30,25 +30,16 @@ public class WorldService {
     }
 
     public World setWorldValues(World world) throws ClientSideException {
-        if(world.getF_rank() < 0) throw new ClientSideException();
-        if(world.getE_rank() < 0) throw new ClientSideException();
-        if(world.getD_rank() < 0) throw new ClientSideException();
-        if(world.getC_rank() < 0) throw new ClientSideException();
-        if(world.getB_rank() < 0) throw new ClientSideException();
-        if(world.getA_rank() < 0) throw new ClientSideException();
-        if(world.getS_rank() < 0) throw new ClientSideException();
-        if(world.getSs_rank() < 0) throw new ClientSideException();
-        if(worldDAO.findById(world.getId()).isEmpty()) throw new ClientSideException();
-        World innerWorld = worldDAO.findById(world.getId()).get();
+        World innerWorld = worldDAO.findById(1).get();
 
-        innerWorld.setF_rank(innerWorld.getF_rank() + world.getF_rank());
-        innerWorld.setE_rank(innerWorld.getE_rank() + world.getE_rank());
-        innerWorld.setD_rank(innerWorld.getD_rank() + world.getD_rank());
-        innerWorld.setC_rank(innerWorld.getC_rank() + world.getC_rank());
-        innerWorld.setB_rank(innerWorld.getB_rank() + world.getB_rank());
-        innerWorld.setA_rank(innerWorld.getA_rank() + world.getA_rank());
-        innerWorld.setS_rank(innerWorld.getS_rank() + world.getS_rank());
-        innerWorld.setSs_rank(innerWorld.getSs_rank() + world.getSs_rank());
+        innerWorld.setF_rank(Math.max(innerWorld.getF_rank() + world.getF_rank(),0));
+        innerWorld.setE_rank(Math.max(innerWorld.getE_rank() + world.getE_rank(),0));
+        innerWorld.setD_rank(Math.max(innerWorld.getD_rank() + world.getD_rank(),0));
+        innerWorld.setC_rank(Math.max(innerWorld.getC_rank() + world.getC_rank(),0));
+        innerWorld.setB_rank(Math.max(innerWorld.getB_rank() + world.getB_rank(),0));
+        innerWorld.setA_rank(Math.max(innerWorld.getA_rank() + world.getA_rank(),0));
+        innerWorld.setS_rank(Math.max(innerWorld.getS_rank() + world.getS_rank(),0));
+        innerWorld.setSs_rank(Math.max(innerWorld.getSs_rank() + world.getSs_rank(),0));
 
         worldDAO.save(innerWorld);
         return innerWorld;

@@ -15,6 +15,9 @@ import "./Card.css"
 function Card(props: any) {
   const[ nickname, setNickname] = useState<string>('')
   
+  const handleNameChange = (event:any) => {
+    setNickname(event.target.value)
+  }
 
       let getUrl = (rank: string) =>   {
         
@@ -103,9 +106,11 @@ function Card(props: any) {
     }
 
     let updateNickname = () =>{
-      axios.patch("http://localhost:8080/backpack", {withCredentials: true})
+      let data = props.duck;
+      data.nickname = nickname
+      axios.patch("http://localhost:8080/backpack",data,{withCredentials: true})
       .then((response) => {
-        setNickname(response.data.nickname)
+        alert("Nickname updated to " + nickname)
       })
       .catch((err) =>{
         console.log(err)
@@ -114,9 +119,9 @@ function Card(props: any) {
     }
 
     let deleteCard = () => {
-      axios.delete("http://localhost:8080/backpack", {withCredentials: true})
+      axios.delete("http://localhost:8080/backpack",{withCredentials: true,data:props.duck})
       .then(response => {
-        console.log("Card deleted")
+        alert("Card deleted")
       })
       .catch((err) => {
         console.log(err)
@@ -137,7 +142,7 @@ function Card(props: any) {
       <div className={className(props.duck.rank)}>
         <img src={getUrl(props.duck.rank)}></img>
         <div className="name-change">
-        <input type="text" placeholder={props.duck.nickname} name="name"/> 
+        <input type="text" placeholder={props.duck.nickname} onChange={handleNameChange} name="name"/> 
         <button id="checkmark" onClick={updateNickname}><img src={checkmark}/></button>
         </div>
         <p>Rank: {props.duck.rank}</p>

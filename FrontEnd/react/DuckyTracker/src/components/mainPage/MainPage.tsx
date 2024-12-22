@@ -14,9 +14,9 @@ function LogOut(){
 
 function Search(){
   axios.post("http://localhost:8080/backpack",{},{withCredentials:true})
-  .then((response) => {alert("Searching for Duck")})
+  .then((response) => {alert("Found Duck")})
   .catch((error) => {
-      alert(error.data)
+      alert("Not Enough Backpack Space")
   })
 }
 
@@ -37,17 +37,13 @@ function MainPage() {
   }
 
   useEffect(() => {
-      //Obtain Bank Value
-      axios.get("http://localhost:8080/backpack",{withCredentials:true})
-      .then((response)=>{
-        Math.floor(response.data["bank_account"])
-        setAdmin(response.data["admin"])
-      })
+      
       //Create Interval to Continuously Get Bank Account
       const interval = setInterval(()=> {
           axios.get("http://localhost:8080/backpack",{withCredentials:true})
           .then((response)=>{
             setCash(Math.floor(response.data["bank_account"]))
+            setAdmin(response.data["admin"])
           })
 
           axios.get("http://localhost:8080/backpack/world",{withCredentials:true})
@@ -61,19 +57,16 @@ function MainPage() {
         axios.get("http://localhost:8080/backpack/price",{withCredentials:true}).then(
           (response) => {setBackpackCost(Math.ceil(response.data))}
         )
-        },2000)
 
-     
+        axios.get<Duck[]>("http://localhost:8080/backpack/ducks",{withCredentials:true})
+        .then((res) => {
+          setDuck(res.data)
+        })
+      
+        },1000)
       return () => {clearInterval(interval)}
   })
 
-
-  useEffect(() => {
-    axios.get<Duck[]>("http://localhost:8080/backpack/ducks",{withCredentials:true})
-    .then((res) => {
-      setDuck(res.data)
-    })
-  }, [])
 
   let buyStroage = () => {
   
@@ -144,7 +137,7 @@ function MainPage() {
        {ducks.map((card: Duck) => {
         return(
          <div className="card"> 
-        <Card duck={card}></Card>
+          <Card duck={card}></Card>
         </div>
         )
        })} 

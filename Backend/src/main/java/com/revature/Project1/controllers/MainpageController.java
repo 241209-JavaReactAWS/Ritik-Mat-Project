@@ -64,7 +64,6 @@ public class MainpageController {
 
         //USER AUTHORIZATION
         Optional<User> resultUser;
-        System.out.println(cookie);
         try{
             resultUser = userService.getUserById(Integer.parseInt(cookie));
         } catch (Exception e){
@@ -84,7 +83,7 @@ public class MainpageController {
         //CHECKING BACKPACK SPACE
         try{
             List<Duck> resultDucks = duckService.getDucksByForeignId(Integer.parseInt(cookie));
-            if(resultUser.get().getBackpack_space() < resultDucks.size()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Backpack Too Full");
+            if(resultUser.get().getBackpack_space() <= resultDucks.size()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Backpack Too Full");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Something Went Wrong 2");
         }
@@ -100,19 +99,19 @@ public class MainpageController {
         returnDuck.setNickname("DefaultName");
 
         try{
-            World updatedWorld = worldService.getWorldValuesById(1);
+            World updatedWorld = new World();
             if(duckRank.equals("B")) updatedWorld.setB_rank(-1);
-            if(duckRank.equals("A")) updatedWorld.setB_rank(-1);
-            if(duckRank.equals("S")) updatedWorld.setB_rank(-1);
-            if(duckRank.equals("SS")) updatedWorld.setB_rank(-1);
+            if(duckRank.equals("A")) updatedWorld.setA_rank(-1);
+            if(duckRank.equals("S")) updatedWorld.setS_rank(-1);
+            if(duckRank.equals("SS")) updatedWorld.setSs_rank(-1);
             worldService.setWorldValues(updatedWorld);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Something Went Wrong 3");
         }
 
         try{
-            returnDuck = duckService.createDuck(returnDuck);
             Thread.sleep(3000);
+            returnDuck = duckService.createDuck(returnDuck);
             return ResponseEntity.status(HttpStatus.OK).body(returnDuck);
         }
         catch (Exception e){
